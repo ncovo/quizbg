@@ -13,6 +13,8 @@ router.get('/creditos', function(req, res){
   res.render('creditos', { title: 'Quiz' });
 });
 
+//Autoload de comandos con :quizId
+router.param('quizId', quizController.load); // autoload :quizid
 
 router.get('/quizes', 				quizController.index);
 router.get('/quizes/:quizId(\\d+)',		quizController.show);
