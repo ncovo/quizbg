@@ -46,7 +46,7 @@ exports.answer = function(req, res){
 //GET /quizes/new
 exports.new = function(req, res){
     var quiz = models.Quiz.build(
- 	{pregunta: "Pregunta", respuesta: "Respuesta"}
+ 	{pregunta: "Pregunta", respuesta: "Respuesta", tema: "Tema"}
     );
     res.render('quizes/new', {quiz: quiz, errors: []});
 };
@@ -63,7 +63,7 @@ exports.create = function(req, res){
 		res.render('quizes/new', {quiz: quiz, errors: err.errors});
 	    } else {
 		quiz
-		.save({fields: ["pregunta", "respuesta"]})
+		.save({fields: ["pregunta", "respuesta", "tema"]})
 		.then(function(){ res.redirect('/quizes')})
 	    }
 	}	
@@ -81,6 +81,7 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
     req.Quiz.pregunta = req.body.quiz.pregunta;
     req.Quiz.respuesta = req.body.quiz.respuesta;
+    req.Quiz.tema = req.body.quiz.tema;
 
     req.Quiz
     .validate()
@@ -90,10 +91,17 @@ exports.update = function(req, res){
 		res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
 	    } else {
 		req.Quiz
-		.save({fields: ["pregunta", "respuesta"]})
+		.save({fields: ["pregunta", "respuesta", "tema"]})
 		.then(function(){ res.redirect('/quizes')})
 	    }
 	}	
     );
+};
+
+//DELETE quizes/:id/
+exports.destroy = function(req, res){
+	req.Quiz.destroy().then( function() { 
+		res.redirect('/quizes');
+	}).catch(function(){next(error)});
 };
 
