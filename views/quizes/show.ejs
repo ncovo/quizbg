@@ -3,3 +3,10 @@
         <input type="text" name="answer"></input>
 	<input type="submit" value="Enviar">
     </form>
+
+<p><a href="/quizes/<%= question.id %>/comments/new"><button>Nuevo Comentario</button></a></p>
+
+<p><strong>Comentarios:</stron></p>
+<% for(index in question.Comments)  {%>
+	<p>- <%= question.Comments[index].texto %></p>
+<% } %>
