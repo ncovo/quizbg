@@ -8,5 +8,12 @@
 
 <p><strong>Comentarios:</stron></p>
 <% for(index in question.Comments)  {%>
-	<p>- <%= question.Comments[index].texto %></p>
+	<% if(question.Comments[index].publicado || session.user){ %>
+		<p>- <%= question.Comments[index].texto %>
+		<% if(session.user && !question.Comments[index].publicado){ %>
+			<a href="/quizes/"<%= question.id %>/comments/<%= question.Comments[index].id %>/publish">
+			<button>publicar</button>
+		<% } %>
+		</p>
+	<% } %>
 <% } %>

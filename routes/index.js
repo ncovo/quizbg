@@ -34,5 +34,7 @@ router.delete('/quizes/:quizId(\\d+)', 		sessionController, loginRequired, quizC
 
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments', 	 commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publich',
+						sessionController, loginRequired, commentController.publish);
 
 module.exports = router;
